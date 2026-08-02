@@ -1,0 +1,91 @@
+{
+  "Login": {
+    "brandSub": "Khata Digital",
+    "brandTitle": "Digital Khata",
+    "description": "A simple, bilingual credit ledger for your shop. Track debts, send reminders, and manage your business accounts with traditional trust and modern speed.",
+    "badgeText": "Easily keep digital ledger for your shop",
+    "phoneLabel": "Phone Number",
+    "passwordLabel": "Password",
+    "submitButton": "Login",
+    "forgotPassword": "Forgot Password?",
+    "orDivider": "OR",
+    "createAccountButton": "Create New Account",
+    "footerBrand": "Digital Khata",
+    "footerPlatform": "for Desktop.",
+    "trustBadge": "Trusted by 10,000+ Shop Owners across Nepal."
+  },
+  "RegisterPage": {
+    "title": "Create Account",
+    "description": "Join thousands of shop owners managing their credit and daily accounts effortlessly with Digital Khata.",
+    "tagline": "Open a new account and manage your shop",
+    "shopNameLabel": "Shop Name",
+    "shopNamePlaceholder": "e.g. Kathmandu Kirana Store",
+    "fullNameLabel": "Full Name",
+    "fullNamePlaceholder": "e.g. Ram Bahadur",
+    "phoneLabel": "Phone Number",
+    "passwordLabel": "Password",
+    "submitButton": "Create Account",
+    "or": "OR",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginLink": "Log In",
+    "footerAppTitle": "Digital Khata for Desktop.",
+    "footerTrust": "Trusted by 10,000+ Shop Owners across Nepal."
+  }
+,
+  "HomePage": {
+    "nav": {
+      "features": "Features",
+      "howItWorks": "How it Works",
+      "pricing": "Pricing",
+      "contact": "Contact",
+      "login": "Login",
+      "register": "Register"
+    },
+    "hero": {
+      "tagline": "Digital Khata - Now in your hands",
+      "titlePart1": "Your Physical Ledger,",
+      "titlePart2": "Now Digital.",
+      "description": "A simple, bilingual credit ledger for small shops in Nepal. Track debts, send reminders, and manage your business with traditional trust and modern speed.",
+      "getStarted": "Get Started for Free",
+      "watchDemo": "Watch Demo"
+    },
+    "mockup": {
+      "myLedger": "My Ledger",
+      "totalBalance": "Total Balance",
+      "customers": "24 Customers",
+      "addTransaction": "Add Transaction"
+    },
+    "features": {
+      "title": "Why Shop Owners Choose Khata Digital",
+      "subtitle": "Modern tools built on the foundation of traditional Nepali business practices.",
+      "bilingualTitle": "Bilingual Support",
+      "bilingualDesc": "Seamlessly switch between English and Nepali. Language should never be a barrier to growing your business.",
+      "stitchTitle": "Digital 'Stitch' Ledger",
+      "stitchDesc": "Visual status indicators that feel like your physical notebook. Red for credit, green for debit.",
+      "staffTitle": "Staff Management",
+      "staffDesc": "Control what your assistants can see and do. Keep your core financial data private.",
+      "pdfTitle": "Professional PDF Statements",
+      "pdfDesc": "Generate detailed reports and share professional balance summaries directly via WhatsApp or SMS with a single tap."
+    },
+    "cta": {
+      "title": "Ready to ditch the paper?",
+      "subtitle": "Join 10,000+ Nepali shopkeepers who have modernized their business tracking with Khata Digital.",
+      "downloadApp": "Download Mobile App",
+      "registerOnline": "Register Shop Online",
+      "note": "No credit card required. Free for up to 50 customers."
+    },
+    "footer": {
+      "description": "Empowering small retail businesses across Nepal with simple, reliable digital tools.",
+      "rights": "© 2026 Khata Digital. Modernizing Nepali Business. All rights reserved."
+    }
+  },
+  "OtpScreen": {
+    "title": "Verify Number",
+    "subtitle": "Enter the 6-digit code sent to",
+    "resendIn": "Resend OTP in",
+    "resendNow": "Resend OTP now",
+    "verify": "Verify",
+    "encrypted": "Secure AES-256 Encrypted Verification"
+  }
+}
+  

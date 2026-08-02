@@ -1,0 +1,176 @@
+'use client';
+
+import React, { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Phone, Lock, Languages } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import { LanguageToggle } from '@/app/components/languageToggle';
+
+
+export default function LoginPage() {
+  const t = useTranslations('Login'); 
+
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log({ phoneNumber, password });
+  };
+
+  return (
+    <div className="min-h-screen w-full bg-[#f8f6f0] flex flex-col items-center justify-center p-4 sm:p-8 font-sans relative">
+      
+      {/* Top Bar with Language Toggle */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="absolute top-4 right-4 sm:top-8 sm:right-8 z-10"
+      >
+        <LanguageToggle />
+      </motion.div>
+
+      {/* Main Container Card */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="w-full max-w-5xl bg-[#FAF8F5] rounded-3xl shadow-xl border border-gray-200/60 p-6 sm:p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16 mt-12 sm:mt-0"
+      >
+        
+        {/* Left Section: Branding & Intro */}
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left space-y-6">
+          
+          {/* Logo */}
+          <div className="flex flex-col items-center md:items-start">
+            <div className="relative w-28 h-28 mb-1">
+              <Image
+                src="/digital.png"
+                alt="Digital Khata Logo"
+                fill
+                className="object-contain md:object-left"
+                priority
+              />
+            </div>
+            <span className="text-xs font-bold tracking-widest text-[#B87D28] uppercase">
+              {t('brandSub')}
+            </span>
+          </div>
+
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-[#0B172A] tracking-tight">
+            {t('brandTitle')}
+          </h1>
+
+          <p className="text-sm sm:text-base text-gray-600 max-w-md leading-relaxed font-normal">
+            {t('description')}
+          </p>
+
+          <div className="inline-flex items-center gap-2 bg-[#F3EFE6] border border-[#E2DAD0] text-[#333] px-3.5 py-1.5 rounded-md text-xs font-medium shadow-sm">
+            <Languages className="w-4 h-4 text-gray-600" />
+            <span>{t('badgeText')}</span>
+          </div>
+        </div>
+
+        {/* Right Section: Animated Login Form Card */}
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="w-full md:w-[420px] flex flex-col items-center"
+        >
+          <div className="w-full bg-white rounded-xl shadow-lg border border-gray-100 p-6 sm:p-8">
+            <form onSubmit={handleLogin} className="space-y-5">
+              
+              {/* Phone Input */}
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-bold tracking-wider text-gray-500 uppercase">
+                  {t('phoneLabel')}
+                </label>
+                <div className="relative flex items-center">
+                  <Phone className="absolute left-3 w-4 h-4 text-gray-500" />
+                  <input
+                    type="tel"
+                    required
+                    placeholder="98XXXXXXXX"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    className="w-full bg-[#FFFDF7] border border-gray-200 rounded-md py-2.5 pl-9 pr-3 text-sm text-gray-800 tracking-wide focus:outline-none focus:ring-2 focus:ring-[#0B172A] focus:border-transparent transition-all placeholder:text-gray-400"
+                  />
+                </div>
+              </div>
+
+              {/* Password Input */}
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-bold tracking-wider text-gray-500 uppercase">
+                  {t('passwordLabel')}
+                </label>
+                <div className="relative flex items-center">
+                  <Lock className="absolute left-3 w-4 h-4 text-gray-500" />
+                  <input
+                    type="password"
+                    required
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-[#FFFDF7] border border-gray-200 rounded-md py-2.5 pl-9 pr-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0B172A] focus:border-transparent transition-all placeholder:text-gray-400"
+                  />
+                </div>
+              </div>
+
+              {/* Login Button */}
+              <motion.button
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                type="submit"
+                className="w-full bg-[#0B1D33] hover:bg-[#142942] text-white text-sm font-medium py-2.5 rounded-md transition-colors shadow-sm cursor-pointer"
+              >
+                {t('submitButton')}
+              </motion.button>
+
+              <div className="text-center pt-1">
+                <a
+                  href="#forgot-password"
+                  className="text-xs text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                >
+                  {t('forgotPassword')}
+                </a>
+              </div>
+
+              <div className="relative flex items-center justify-center my-4">
+                <div className="border-t border-gray-200 w-full"></div>
+                <span className="bg-white px-2 text-[10px] text-gray-400 font-semibold tracking-wider uppercase absolute">
+                  {t('orDivider')}
+                </span>
+              </div>
+
+              {/* Link to Register Page */}
+              <Link href="/register" className="w-full block">
+                <motion.button
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="button"
+                  className="w-full bg-[#FAAF3B] hover:bg-[#f3a42c] text-[#0B172A] text-sm font-semibold py-2.5 rounded-md transition-colors shadow-sm cursor-pointer"
+                >
+                  {t('createAccountButton')}
+                </motion.button>
+              </Link>
+            </form>
+          </div>
+
+          <div className="text-center mt-6 text-[11px] text-gray-500 space-y-0.5">
+            <p>
+              <span className="font-semibold text-gray-700">{t('footerBrand')}</span> {t('footerPlatform')}
+            </p>
+            <p className="text-gray-400">
+              {t('trustBadge')}
+            </p>
+          </div>
+        </motion.div>
+
+      </motion.div>
+    </div>
+  );
+}

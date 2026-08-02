@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+enum StaffPermission {
+  ADD_ONLY        // can only add credit entries
+  ADD_AND_SETTLE  // can add credit AND record payments (decrease)
+}
+
+enum TransactionType {
+  CREDIT   // amount owed increases
+  PAYMENT  // amount owed decreases
+}
+
+// ---------- AUTH ----------
+
+model OtpVerification {
+  id        String   @id @default(cuid())
+  phone     String
+  code      String
+  purpose   String   
+  expiresAt DateTime
+  verified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([phone, purpose])
+}
+
+model ShopOwner {
+  id           String   @id @default(cuid())
+  phone        String   @unique // verified via OTP
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+
+  shop         Shop?
+
+  @@index([phone])
+}
+
+// ---------- SHOP & STAFF ----------
+
+model Shop {
+  id        String    @id @default(cuid())
+  name      String
+  ownerId   String    @unique
+  owner     ShopOwner @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+
+  customers Customer[]
+  staff     Staff[]
+}
+
+model Staff {
+  id           String          @id @default(cuid())
+  shopId       String
+  shop         Shop            @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  name         String
+  phone        String?         @unique // Optional phone/username for login
+  passwordHash String          // Owner assigns an initial password
+  permission   StaffPermission @default(ADD_AND_SETTLE)
+  isActive     Boolean         @default(true) // Owner can deactivate staff access easily
+  createdAt    DateTime        @default(now())
+
+  transactions Transaction[]
+
+  @@index([shopId])
+}
+
+// ---------- CUSTOMERS ----------
+
+model Customer {
+  id           String        @id @default(cuid())
+  shopId       String
+  shop         Shop          @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  name         String
+  nickname     String?       // e.g. "Ramesh (Chiya Pasal)"
+  phone        String?
+  address      String?
+  dateAdded    DateTime      @default(now())
+
+  transactions Transaction[]
+
+  // Financial Totals
+  balance      Decimal       @default(0) @db.Decimal(12, 2) // Current net due amount (totalCredit - totalPayment)
+  totalCredit  Decimal       @default(0) @db.Decimal(12, 2) // Lifetime total credit taken
+  totalPayment Decimal       @default(0) @db.Decimal(12, 2) // Lifetime total payments made
+  
+  lastActivity DateTime?
+
+  @@index([shopId])
+  @@index([shopId, balance])
+  @@index([shopId, name])    // search by name/nickname
+}
+
+// ---------- LEDGER ----------
+
+model Transaction {
+  id           String          @id @default(cuid())
+  customerId   String
+  customer     Customer        @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  type         TransactionType // CREDIT = amount increases, PAYMENT = amount decreases
+  amount       Decimal         @db.Decimal(12, 2)
+  date         DateTime        @default(now())
+  note         String?
+
+  // Explicit tracking for who logged the entry: Owner or Staff
+  addedByOwner Boolean         @default(false)
+  staffId      String?
+  staff        Staff?          @relation(fields: [staffId], references: [id], onDelete: SetNull)
+
+  createdAt    DateTime        @default(now())
+
+  @@index([customerId, date])
+}
