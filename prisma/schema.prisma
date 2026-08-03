@@ -24,18 +24,8 @@ enum TransactionType {
 }
 
 // ---------- AUTH ----------
-
-model OtpVerification {
-  id        String   @id @default(cuid())
-  phone     String
-  code      String
-  purpose   String   
-  expiresAt DateTime
-  verified  Boolean  @default(false)
-  createdAt DateTime @default(now())
-
-  @@index([phone, purpose])
-}
+// OTP verification lives in Redis (lib/otp.ts), not Postgres — it's
+// transient state with a TTL, so no table is needed here anymore.
 
 model ShopOwner {
   id           String   @id @default(cuid())
