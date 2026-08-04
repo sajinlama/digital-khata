@@ -1,16 +1,19 @@
 // app/api/auth/register/route.ts
 import { NextResponse } from 'next/server';
+import bcrypt from 'bcryptjs';
 import prisma from '@/lib/db';
 import { registerSchema } from '@/lib/validator/register';
 import { withErrorHandler } from '@/lib/error/api-wrapper';
 import { createPendingOtp } from '@/lib/otp/createPendingOtp';
 
+const SALT_ROUNDS = 12;
+
 export const POST = withErrorHandler(async (req: Request) => {
   const body = await req.json();
-  const validatedData = registerSchema.parse(body);
+  const { password, ...rest } = registerSchema.parse(body);
 
   const existingOwner = await prisma.shopOwner.findUnique({
-    where: { phone: validatedData.phoneNumber },
+    where: { phone: rest.phoneNumber },
   });
 
   if (existingOwner) {
@@ -20,13 +23,15 @@ export const POST = withErrorHandler(async (req: Request) => {
     );
   }
 
-  const code = await createPendingOtp(validatedData.phoneNumber, validatedData);
+  const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 
-  
+  const code = await createPendingOtp(rest.phoneNumber, { ...rest, passwordHash });
 
+  // TODO: send `code` via SMS provider — never return it in the response
+  // await sendSms(rest.phoneNumber, `Your Digital Khata code is ${code}`);
 
   return NextResponse.json(
-    { success: true, message: `OTP sent ${code}`, data: { phone: validatedData.phoneNumber } },
+    { success: true, message: 'OTP sent', data: { phone: rest.phoneNumber ,code } },
     { status: 200 }
   );
 });
