@@ -86,6 +86,17 @@
     "resendNow": "Resend OTP now",
     "verify": "Verify",
     "encrypted": "Secure AES-256 Encrypted Verification"
+  },
+  "Sidebar": {
+    "brandTitle": "Digital Khata",
+    "brandSubtitle": "Store Ledger",
+    "searchPlaceholder": "Search customers...",
+    "dashboard": "Dashboard",
+    "customers": "Customers",
+    "staff": "Staff Management",
+    "statements": "Statements",
+    "settings": "Settings"
   }
+
 }
   

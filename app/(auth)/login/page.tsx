@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Phone, Lock, Languages } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { LanguageToggle } from '@/app/components/languageToggle';
+import { LanguageToggle } from '@/components/languageToggle';
 
 
 export default function LoginPage() {

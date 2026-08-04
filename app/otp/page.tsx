@@ -6,7 +6,7 @@ import { ArrowLeft, CheckCircle2, Lock, ShieldCheck } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { LanguageToggle } from '@/app/components/languageToggle';
+import { LanguageToggle } from '@/components/languageToggle';
 
 // Initial countdown time: 2 minutes 30 seconds (150s)
 const INITIAL_TIME = 150;
