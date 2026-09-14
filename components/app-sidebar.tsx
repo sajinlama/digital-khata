@@ -143,7 +143,7 @@ export function AppSidebar({
               <User className="w-5 h-5 text-[#8392b7]" />
             )}
           </div>
-          <div className="overflow-hidden group-data-[collapsible=icon]:hidden">
+          <div className="overflow-hidden group-data-[collapsible=icon]:hidden cursor-pointer">
             <p className="text-white text-sm font-bold truncate leading-snug">
               {userName}
             </p>
